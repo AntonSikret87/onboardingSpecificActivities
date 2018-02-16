@@ -1,0 +1,15 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+<suite name="New Suit"  >
+    <!-- suite name="Suite Name" -->
+    <test name="TestCases" allow-return-values="true">
+        <classes>
+            <!-- packagename.Testcase class name  -->
+            <class name ="TestCases" />
+        </classes>
+    </test>
+ </suite>
+
+
+
+
+
