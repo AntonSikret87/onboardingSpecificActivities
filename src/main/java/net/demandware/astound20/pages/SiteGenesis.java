@@ -8,7 +8,6 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 
 public class SiteGenesis extends BasePage {
-
 	By womansItemLocator = By.cssSelector("li:nth-child(1) > a.has-sub-menu");
 	private WebElement lnkWoman;
 
@@ -30,9 +29,6 @@ public class SiteGenesis extends BasePage {
 
 	By womanCategLocator = By.xpath(".//ul[@class='menu-horizontal']//a");
 	private WebElement lnkWomanCategory;
-
-	By closeBonusProductLocator = By.xpath(".//span[@class='ui-button-icon-primary ui-icon ui-icon-closethick']");
-	private WebElement btnCloseBonusProductPopup;
 
 	By firstListLocator = By.xpath(".//a[@class='name-link']");
 	List <WebElement> lstDressesPLP;
@@ -90,7 +86,6 @@ public class SiteGenesis extends BasePage {
 	public CharSequence countListPLP() {
 		lstDressesPLP = driver.findElements(firstListLocator);
 		int allLinksAmountFirst = lstDressesPLP.size() - 1;
-		//System.out.println("Actual: " + allLinksAmountFirst);
 		return (String.valueOf(allLinksAmountFirst));
 	}
 
@@ -100,7 +95,7 @@ public class SiteGenesis extends BasePage {
 		lstSelectPagination.sendKeys(pageAmount);
 		lstSelectPagination.click();
 		try {
-			TimeUnit.SECONDS.sleep(3);
+			TimeUnit.SECONDS.sleep(2);
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
