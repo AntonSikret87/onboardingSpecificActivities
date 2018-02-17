@@ -1,6 +1,5 @@
 import net.demandware.astound20.core.TestBase;
 import net.demandware.astound20.pages.SiteGenesis;
-import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
 import static org.testng.Assert.assertEquals;
@@ -24,15 +23,15 @@ public class TestCases extends TestBase {
 		siteGenesis.open(baseUrl);
 		siteGenesis.hoverWomanCategory();
 		siteGenesis.navigateToDresses();
-		siteGenesis.clickFirstItemOutfit();
+		siteGenesis.clickFirstDressItem();
 		siteGenesis.clickAddToCart();
-		siteGenesis.hoverViewCart();
-		assertEquals(expectedFirstDressText, siteGenesis.getActualText());
+		siteGenesis.hoverViewCartIcon();
+		assertEquals(expectedFirstDressText, siteGenesis.getActualTextFromViewCartDialog());
 	}
 
 	//Test scenario#2
 	@Test
-	public void hoveringWomanCategOpensPopup() {
+	public void hoveringWomanCategOpenedPopup() {
 		SiteGenesis siteGenesis = new SiteGenesis(driver);
 		siteGenesis.open(baseUrl);
 		siteGenesis.hoverWomanCategory();
@@ -46,12 +45,12 @@ public class TestCases extends TestBase {
 		siteGenesis.open(baseUrl);
 		siteGenesis.hoverWomanCategory();
 		siteGenesis.navigateToDresses();
-		assertEquals(expectedAmountOnFirstPLP, siteGenesis.countListPLP());
-		siteGenesis.chengeListViewPagination(expectedAmountOnSecondPLP);
-		assertEquals(expectedAmountOnSecondPLP, siteGenesis.countListPLP());
-		siteGenesis.chengeListViewPagination(expectedAmountOnThirdPLP);
-		assertEquals(expectedAmountOnThirdPLP, siteGenesis.countListPLP());
-		siteGenesis.chengeListViewPagination(selectViewAll);
-		assertEquals(expectedAmountOnFourthPLP, siteGenesis.countListPLP());
+		assertEquals(expectedAmountOnFirstPLP, siteGenesis.countItemsDisplayedOnPLP());
+		siteGenesis.changeListViewPagination(expectedAmountOnSecondPLP);
+		assertEquals(expectedAmountOnSecondPLP, siteGenesis.countItemsDisplayedOnPLP());
+		siteGenesis.changeListViewPagination(expectedAmountOnThirdPLP);
+		assertEquals(expectedAmountOnThirdPLP, siteGenesis.countItemsDisplayedOnPLP());
+		siteGenesis.changeListViewPagination(selectViewAll);
+		assertEquals(expectedAmountOnFourthPLP, siteGenesis.countItemsDisplayedOnPLP());
 	}
 }
