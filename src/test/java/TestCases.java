@@ -16,6 +16,7 @@ public class TestCases extends TestBase {
 	private String selectViewAll = "View All (46)";
 	private String expectedAmountOnFourthPLP = "46";
 
+
 	//Test scenario#1
 	@Test
 	public void productFromWomanCategAddedToCart() {
@@ -31,7 +32,7 @@ public class TestCases extends TestBase {
 
 	//Test scenario#2
 	@Test
-	public void hoveringWomanCategOpenedPopup() {
+	public void hoveringWomanCategOpensPopup() {
 		SiteGenesis siteGenesis = new SiteGenesis(driver);
 		siteGenesis.open(baseUrl);
 		siteGenesis.hoverWomanCategory();

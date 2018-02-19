@@ -1,10 +1,14 @@
 package net.demandware.astound20.core;
 
 import java.util.concurrent.TimeUnit;
+
+import net.demandware.astound20.pages.SiteGenesis;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
+import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Test;
 
 public class TestBase {
 	protected WebDriver driver;
@@ -19,7 +23,7 @@ public class TestBase {
 
 	@AfterClass(alwaysRun = true)
 	public void tearDown() {
-		driver.quit();
+		driver.close();
 	}
 
 	private void setWebDriverSettings() {

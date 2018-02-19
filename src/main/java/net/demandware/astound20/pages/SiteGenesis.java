@@ -17,7 +17,7 @@ public class SiteGenesis extends BasePage {
 	By firstItemInDressesLocator = By.xpath(".//div[@class='product-tile' and @data-itemid='25696638']");
 	private WebElement lnkFirstItemInDresses;
 
-	By addToCartLocator = By.xpath(".//button[@id='add-to-cart']");
+	By addToCartLocator = By.id("add-to-cart");
 	private WebElement btnAddToCart;
 
 	By viewCartLocator = By.xpath(".//i[@class='minicart-icon fa fa-shopping-cart']");
