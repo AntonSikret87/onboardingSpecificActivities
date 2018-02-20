@@ -2,19 +2,15 @@ package net.demandware.astound20.pages;
 
 import java.util.List;
 import java.util.concurrent.TimeUnit;
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 
-public class SiteGenesis extends BasePage {
-	By womansItemLocator = By.cssSelector("li:nth-child(1) > a.has-sub-menu");
-	private WebElement lnkWoman;
+public class DressesPage extends BasePage {
 
-	By itemDressesLocator = By.xpath(".//li/a[contains(., 'Dresses')]");
-	private WebElement lnkDresses;
-
-	By firstItemInDressesLocator = By.xpath(".//div[@class='product-tile' and @data-itemid='25696638']");
+	By firstItemInDressesLocator = By.xpath(".//div[@class='product-name' and @xpath='1']");
 	private WebElement lnkFirstItemInDresses;
 
 	By addToCartLocator = By.id("add-to-cart");
@@ -24,40 +20,31 @@ public class SiteGenesis extends BasePage {
 	private WebElement btnViewCart;
 
 	By productInCartLocator =
-			By.xpath(".//div[@class='mini-cart-name']//a[@title='Go to Product: Cap Sleeve Wrap Dress.']");
+			By.xpath(".//div[@class='mini-cart-name']/a");
 	private WebElement lnkProductInCart;
 
-	By itemsUnderWomanCategLocator = By.xpath(".//ul[@class='menu-horizontal']//a");
-	private WebElement lnksUnderWomanCategory;
-
 	By listDressesLocator = By.xpath(".//a[@class='name-link']");
-	List <WebElement> lstDressesPLP;
+	List<WebElement> lstDressesPLP;
 
 	By paginationSelecPLPtLocator = By.id("grid-paging-footer");
 	private WebElement lstSelectPaginationPLP;
 
 
-	public SiteGenesis(WebDriver driver) {
+
+
+	public DressesPage(WebDriver driver) {
 		super(driver);
 	}
 
-	public void hoverWomanCategory() {
-		lnkWoman = webDriverUtil.waitForExpectedCondition(
-				ExpectedConditions.visibilityOfElementLocated(womansItemLocator));
-		action.moveToElement(lnkWoman).build().perform();
-	}
-
-	public void navigateToDresses() {
-		lnkDresses = webDriverUtil.waitForExpectedCondition(
-				ExpectedConditions.elementToBeClickable(itemDressesLocator));
-		action.click(lnkDresses).click().build().perform();
-	}
-
-	public void clickFirstDressItem() {
+	public void clickItemAndGetNameProduct() {
+//		String actualName = driver.findElement(By.xpath("//h1[@class='product-name']")).getText();
+//		System.out.println(actualName);
 		lnkFirstItemInDresses = webDriverUtil.waitForExpectedCondition(
 				ExpectedConditions.elementToBeClickable(firstItemInDressesLocator));
 		lnkFirstItemInDresses.click();
+		//return actualName;
 	}
+
 
 	public void clickAddToCart() {
 		btnAddToCart = webDriverUtil.waitForExpectedCondition(
@@ -78,19 +65,14 @@ public class SiteGenesis extends BasePage {
 		return actualText;
 	}
 
-	public boolean womanCategoriesLinksAreDisplayed() {
-		lnksUnderWomanCategory = driver.findElement(itemsUnderWomanCategLocator);
-		return lnksUnderWomanCategory.isDisplayed();
-	}
-
 	public CharSequence countItemsDisplayedOnPLP() {
 		lstDressesPLP = driver.findElements(listDressesLocator);
 		int amountOfLinksThatDisplayed = lstDressesPLP.size() - 1;
 		return (String.valueOf(amountOfLinksThatDisplayed));
 	}
 
-	public void changeListViewPagination(String pageAmountToBeDisplayed){
-		lstSelectPaginationPLP =driver.findElement(paginationSelecPLPtLocator);
+	public void changeListViewPagination(String pageAmountToBeDisplayed) {
+		lstSelectPaginationPLP = driver.findElement(paginationSelecPLPtLocator);
 		lstSelectPaginationPLP.click();
 		lstSelectPaginationPLP.sendKeys(pageAmountToBeDisplayed);
 		lstSelectPaginationPLP.click();
@@ -100,4 +82,8 @@ public class SiteGenesis extends BasePage {
 			e.printStackTrace();
 		}
 	}
-}
+
+
+	}
+
+

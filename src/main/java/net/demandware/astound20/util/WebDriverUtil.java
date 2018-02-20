@@ -12,11 +12,12 @@ public class WebDriverUtil {
 	private WebDriverWait webDriverWait;
 	private Actions actions;
 	private JavascriptExecutor JSexecutor;
+	private long waitExplicit = Long.parseLong(PropertiesCache.getProperty("wait.explicit"));
 
 
 	public WebDriverUtil(WebDriver webDriver) {
 		this.webDriver = webDriver;
-		webDriverWait = new WebDriverWait(webDriver, 25);
+		webDriverWait = new WebDriverWait(webDriver, waitExplicit);
 		actions = new Actions(webDriver);
 	}
 
