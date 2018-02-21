@@ -14,7 +14,6 @@ public class WebDriverUtil {
 	private JavascriptExecutor JSexecutor;
 	private long waitExplicit = Long.parseLong(PropertiesCache.getProperty("wait.explicit"));
 
-
 	public WebDriverUtil(WebDriver webDriver) {
 		this.webDriver = webDriver;
 		webDriverWait = new WebDriverWait(webDriver, waitExplicit);
