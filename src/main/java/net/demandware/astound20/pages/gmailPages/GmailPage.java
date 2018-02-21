@@ -41,7 +41,7 @@ public class GmailPage extends BasePage {
 		nextButtonPassword.click();
 	}
 
-	public boolean errorMessageIsDisplayed(){
+	public boolean errorMessageIsDisplayed() {
 		errorMessage = webDriverUtil.waitForExpectedCondition(
 				ExpectedConditions.visibilityOfElementLocated(errorMessageLocator));
 		return errorMessage.isDisplayed();
