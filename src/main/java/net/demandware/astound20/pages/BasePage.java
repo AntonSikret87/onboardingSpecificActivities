@@ -11,8 +11,8 @@ public class BasePage {
 
 	public BasePage(WebDriver driver) {
 		this.driver = driver;
-		webDriverUtil=new WebDriverUtil(driver);
-		action =new Actions(driver);
+		webDriverUtil = new WebDriverUtil(driver);
+		action = new Actions(driver);
 	}
 
 	public void open(String url) {

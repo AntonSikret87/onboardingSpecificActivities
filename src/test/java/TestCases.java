@@ -1,7 +1,8 @@
-import net.demandware.astound20.core.TestBase;
-import net.demandware.astound20.pages.DressesPage;
-import net.demandware.astound20.pages.HomePage;
+import java.util.ArrayList;
+import java.util.List;
 
+import net.demandware.astound20.core.TestBase;
+import net.demandware.astound20.pages.HomePage;
 import org.testng.annotations.Test;
 
 import static org.testng.Assert.assertEquals;
@@ -10,26 +11,17 @@ import static org.testng.Assert.assertTrue;
 
 public class TestCases extends TestBase {
 
-	private String expectedFirstDressText = "Cap Sleeve Wrap Dress.";
-	private int expectedAmountOnFirstPLP = 12;
-	private String expectedAmountOnSecondPLP = "24";
-	private String expectedAmountOnThirdPLP = "36";
-	private String selectViewAll = "View All (46)";
-	private String expectedAmountOnFourthPLP = "46";
-
-
 	//Test scenario#1
 	@Test
 	public void productFromWomanCategAddedToCart() {
 		HomePage homePage = new HomePage(driver);
 		homePage.hoverWomanCategory();
 		homePage.navigateToDresses();
-		DressesPage dressesPage = new DressesPage(driver);
-		//String actualNameProduct =
-				dressesPage.clickItemAndGetNameProduct();
-		dressesPage.clickAddToCart();
-		dressesPage.hoverViewCartIcon();
-		//assertEquals(actualNameProduct, dressesPage.getActualTextFromViewCartDialog());
+		//DressesPage dressesPage = new DressesPage(driver);
+		String actualNameProduct = homePage.clickItemAndGetNameProduct();
+		homePage.clickAddToCart();
+		homePage.hoverViewCartIcon();
+		assertEquals(actualNameProduct, homePage.getActualTextFromViewCartDialog());
 	}
 
 	//Test scenario#2
@@ -46,11 +38,15 @@ public class TestCases extends TestBase {
 		HomePage homePage = new HomePage(driver);
 		homePage.hoverWomanCategory();
 		homePage.navigateToDresses();
-		int actualFirstValueInDropDown = homePage.selectAndGetValueFromDropDownPLP(0);
-		assertEquals(actualFirstValueInDropDown, homePage.countItemsDisplayedOnPLP());
-		int actualSecondValueInDropDown = homePage.selectAndGetValueFromDropDownPLP(1);
-		assertEquals(actualSecondValueInDropDown, homePage.countItemsDisplayedOnPLP());
-
+		List<String> listDropDownPLP;
+		listDropDownPLP = homePage.addStringFromDropDownPLP();
+		assertEquals(Integer.parseInt(listDropDownPLP.get(0)), homePage.countItemsDisplayedOnPLP());
+		homePage.changeValueInDropDown(listDropDownPLP.get(1));
+		assertEquals(Integer.parseInt(listDropDownPLP.get(1)), homePage.countItemsDisplayedOnPLP());
+		homePage.changeValueInDropDown(listDropDownPLP.get(2));
+		assertEquals(Integer.parseInt(listDropDownPLP.get(2)), homePage.countItemsDisplayedOnPLP());
+		homePage.changeValueInDropDown(listDropDownPLP.get(3).toString());
+		int actualIntValueInDropDown = homePage.parseStringToInteger(listDropDownPLP.get(3));
+		assertEquals(actualIntValueInDropDown, homePage.countItemsDisplayedOnPLP());
 	}
-
 }

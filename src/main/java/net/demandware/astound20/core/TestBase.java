@@ -9,10 +9,9 @@ import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 
-
 public class TestBase {
 	protected WebDriver driver;
-	private String baseUrl = PropertiesCache.getProperty("base.URL");
+	private String baseUrl = PropertiesCache.getProperty("base.URL");/**/
 	private long implicitWait = Long.parseLong(PropertiesCache.getProperty("wait.implicit"));
 	private long loadingPageTime = Long.parseLong(PropertiesCache.getProperty("wait.loadingPage"));
 	private long scriptSetTime = Long.parseLong(PropertiesCache.getProperty("wait.scriptSetTime"));

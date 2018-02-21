@@ -1,6 +1,7 @@
 package net.demandware.astound20.pages;
 
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
@@ -9,32 +10,46 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.Select;
+
 
 public class HomePage extends BasePage {
 	By womansItemLocator = By.cssSelector(PropertiesCache.getProperty("womanItem.css"));
 	private WebElement lnkWoman;
 
-	By itemDressesLocator = By.xpath("(.//ul[@class='level-3']/descendant::li[position()=3]/a)[1]");
+	By itemDressesLocator = By.xpath(PropertiesCache.getProperty("itemDresses.xpath"));
 	private WebElement lnkDresses;
 
-	By itemsUnderWomanCategLocator = By.xpath(".//ul[@class='menu-horizontal']//a");
+	By itemsUnderWomanCategLocator = By.xpath(PropertiesCache.getProperty("linksUnderWomanCateg.xpath"));
 	private WebElement lnksUnderWomanCategory;
 
-
-
-	By dropDownValuesLocator = By.xpath(".//select[@id='grid-paging-header']/option");
+	By dropDownValuesLocator = By.xpath(PropertiesCache.getProperty("dropDownListValues.xpath"));
 	List<WebElement> lstDropDownPLP;
 
-	By productsOnPLPLocator = By.xpath(".//ul[@id='search-result-items']/li");
+	By productsOnPLPLocator = By.xpath(PropertiesCache.getProperty("lstProductsOnPLP.xpath"));
 	List<WebElement> productsOnPLP;
 
 	By paginationSelecPLPtLocator = By.id("grid-paging-footer");
 	private WebElement lstSelectPaginationPLP;
 
+	By addToCartLocator = By.id(PropertiesCache.getProperty("addToCartBtn.id"));
+	private WebElement btnAddToCart;
+
+	By viewCartLocator = By.xpath(PropertiesCache.getProperty("viewCartIcon.xpath"));
+	private WebElement btnViewCart;
+
+	By productInCartLocator =
+			By.xpath(".//div[@class='mini-cart-name']/a");
+	private WebElement lnkProductInCart;
+
+	By listDressesLocator = By.xpath(".//a[@class='name-link']");
+	List<WebElement> lstDressesPLP;
+
+	By firstProductLocator =
+			By.xpath(PropertiesCache.getProperty("firstItem.xpath"));
+	private WebElement firstProductLink;
+
 	public HomePage(WebDriver driver) {
 		super(driver);
-
 	}
 
 	public HomePage hoverWomanCategory() {
@@ -44,11 +59,10 @@ public class HomePage extends BasePage {
 		return this;
 	}
 
-	public DressesPage navigateToDresses() {
+	public void navigateToDresses() {
 		lnkDresses = webDriverUtil.waitForExpectedCondition(
 				ExpectedConditions.elementToBeClickable(itemDressesLocator));
-		action.click(lnkDresses).click().build().perform();
-		return new DressesPage(driver);
+		lnkDresses.click();
 	}
 
 	public boolean linksUnderWomanAreDisplayed() {
@@ -56,49 +70,73 @@ public class HomePage extends BasePage {
 		return lnksUnderWomanCategory.isDisplayed();
 	}
 
-
-
-	public int selectAndGetValueFromDropDownPLP(int indexOfValue){
-		//List<Integer> listDropDownFromCycle = new ArrayList<>();
-		lstDropDownPLP =driver.findElements(dropDownValuesLocator);
-		String actualValInDrop = lstDropDownPLP.get(indexOfValue).getText();
-		System.out.println("From liat first el: " + lstDropDownPLP.get(indexOfValue).getText() );
-		new Select(driver.findElement(paginationSelecPLPtLocator)).selectByIndex(indexOfValue);
-
-//		lstSelectPaginationPLP =driver.findElement(paginationSelecPLPtLocator);
-//		lstSelectPaginationPLP.click();
-//		lstSelectPaginationPLP.sendKeys(pageAmountToBeDisplayed);
-//		lstSelectPaginationPLP.click();
-		return Integer.parseInt(actualValInDrop);
-
-		//parse string value from drop down
-//		int number=0;
-//		for(WebElement val : lstDropDownPLP){
-//			String elVal = val.getText();
-//			//System.out.println("Values cycle " + val.getText());
-//			//int valueOnList = Integer.parseInt(val.getText());
-//			String mystr = elVal.replaceAll( "[^\\d]", "" );
-//			number= Integer.parseInt(mystr);
-//			System.out.println(number);
-//			listDropDownFromCycle.add(number);
-//		}
-//		System.out.println(listDropDownFromCycle);
-//		return number;
-
+	public List<String> addStringFromDropDownPLP() {
+		List<String> listDropDownFromCycle = new ArrayList<>();
+		lstDropDownPLP = driver.findElements(dropDownValuesLocator);
+		for (WebElement elVal : lstDropDownPLP) {
+			String elValStr = elVal.getText();
+			listDropDownFromCycle.add(elValStr);
+		}
+		//System.out.println("Numbers added to list after: " + listDropDownFromCycle);
+		return listDropDownFromCycle;
 	}
 
 	public int countItemsDisplayedOnPLP() {
 		productsOnPLP = driver.findElements(productsOnPLPLocator);
 		int amountOfLinksThatDisplayed = productsOnPLP.size();
-		System.out.println("Actual Links onPLP: " + amountOfLinksThatDisplayed);
-		lstSelectPaginationPLP =driver.findElement(paginationSelecPLPtLocator);
-
+		//System.out.println("Actual Links onPLP: " + amountOfLinksThatDisplayed);
 		try {
 			TimeUnit.SECONDS.sleep(4);
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
 		return amountOfLinksThatDisplayed;
+	}
 
+	public void changeValueInDropDown(String pageAmountIndexToBeDisplayed) {
+		lstSelectPaginationPLP = driver.findElement(paginationSelecPLPtLocator);
+		lstSelectPaginationPLP.click();
+		lstSelectPaginationPLP.sendKeys(pageAmountIndexToBeDisplayed);
+		lstSelectPaginationPLP.click();
+		try {
+			TimeUnit.SECONDS.sleep(4);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+	}
+
+	public int parseStringToInteger(String stringWithInteger) {
+		String getString = stringWithInteger.replaceAll("[^\\d]", "");
+		int IntFromStr = Integer.parseInt(getString);
+		//System.out.println("Result int from str : " + IntFromStr);
+		return IntFromStr;
+	}
+
+
+	public void clickAddToCart() {
+		btnAddToCart = webDriverUtil.waitForExpectedCondition(
+				ExpectedConditions.elementToBeClickable(addToCartLocator));
+		btnAddToCart.click();
+	}
+
+	public void hoverViewCartIcon() {
+		btnViewCart = webDriverUtil.waitForExpectedCondition(
+				ExpectedConditions.visibilityOfElementLocated(viewCartLocator));
+		action.moveToElement(btnViewCart).build().perform();
+	}
+
+	public String getActualTextFromViewCartDialog() {
+		lnkProductInCart = webDriverUtil.waitForExpectedCondition(
+				ExpectedConditions.visibilityOfElementLocated(productInCartLocator));
+		String actualText = lnkProductInCart.getText();
+		return actualText;
+	}
+
+	public String clickItemAndGetNameProduct() {
+		firstProductLink = webDriverUtil.waitForExpectedCondition(
+				ExpectedConditions.visibilityOfElementLocated(firstProductLocator));
+		String actualName = firstProductLink.getText();
+		firstProductLink.click();
+		return actualName;
 	}
 }
