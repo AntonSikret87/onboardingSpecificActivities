@@ -46,15 +46,4 @@ public class TestBase {
 	public void goTo() {
 		driver.get(baseUrl);
 	}
-
-//	@AfterMethod(groups= "positive")
-//	public void gmailLogout() {
-//		GmailLoginPage gmailLoginPage = new GmailLoginPage(driver);
-//		gmailLoginPage.logout();
-//		try {
-//			TimeUnit.SECONDS.sleep(3);
-//		} catch (InterruptedException e) {
-//			e.printStackTrace();
-//		}
-//	}
 }

@@ -66,6 +66,7 @@ public class GmailLoginPage extends BasePage {
 		btnSignOut = webDriverUtil.waitForExpectedCondition(
 				ExpectedConditions.visibilityOfElementLocated(signOutLocator));
 		btnSignOut.click();
+		driver.manage().deleteAllCookies();
 	}
 }
 
