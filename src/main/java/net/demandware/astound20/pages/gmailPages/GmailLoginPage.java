@@ -12,7 +12,7 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 public class GmailLoginPage extends BasePage {
 
 	By myIconLocator = By.xpath(PropertiesCache.getProperty("myIcon.xpath"));
-	private WebElement myNameOnThePage;
+	private WebElement btnMyIcon;
 
 	By incomingMailsLocator = By.xpath(PropertiesCache.getProperty("incoming.xpath"));
 	private WebElement incomingLink;
@@ -23,14 +23,17 @@ public class GmailLoginPage extends BasePage {
 	By showDetailsBtnInEmailLocator = By.xpath(PropertiesCache.getProperty("showDetailsBtnInEmail.xpath"));
 	private WebElement btnShowDetailsEmail;
 
+	By signOutLocator = By.id(PropertiesCache.getProperty("signOutBtn.id"));//.//div//a[@id='gb_71']
+	private WebElement btnSignOut;
+
 	public GmailLoginPage(WebDriver driver) {
 		super(driver);
 	}
 
 	public String getTitleIcon() {
-		myNameOnThePage = webDriverUtil.waitForExpectedCondition(
+		btnMyIcon = webDriverUtil.waitForExpectedCondition(
 				ExpectedConditions.elementToBeClickable(myIconLocator));
-		String myNameActual = myNameOnThePage.getAttribute("title");
+		String myNameActual = btnMyIcon.getAttribute("title");
 		return myNameActual;
 	}
 
@@ -50,10 +53,19 @@ public class GmailLoginPage extends BasePage {
 		}
 		System.out.println("Email with this subject was not found");
 	}
-	
+
 	public boolean showDetailsBtnIsDisplayedInEmail() {
 		btnShowDetailsEmail = driver.findElement(showDetailsBtnInEmailLocator);
 		return btnShowDetailsEmail.isDisplayed();
+	}
+
+	public void logout() {
+		btnMyIcon = webDriverUtil.waitForExpectedCondition(
+				ExpectedConditions.elementToBeClickable(myIconLocator));
+		btnMyIcon.click();
+		btnSignOut = webDriverUtil.waitForExpectedCondition(
+				ExpectedConditions.visibilityOfElementLocated(signOutLocator));
+		btnSignOut.click();
 	}
 }
 

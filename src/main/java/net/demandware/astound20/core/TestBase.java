@@ -2,11 +2,14 @@ package net.demandware.astound20.core;
 
 import java.util.concurrent.TimeUnit;
 
+import net.demandware.astound20.pages.gmailPages.GmailLoginPage;
 import net.demandware.astound20.util.PropertiesCache;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 
 import org.testng.annotations.AfterClass;
+import org.testng.annotations.AfterMethod;
+import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 
@@ -38,9 +41,20 @@ public class TestBase {
 		driver.manage().timeouts().pageLoadTimeout(loadingPageTime, TimeUnit.SECONDS);
 		driver.manage().timeouts().setScriptTimeout(scriptSetTime, TimeUnit.SECONDS);
 	}
+
 	@BeforeMethod
-	public void goTo(){
+	public void goTo() {
 		driver.get(baseUrl);
 	}
 
+//	@AfterMethod(groups= "positive")
+//	public void gmailLogout() {
+//		GmailLoginPage gmailLoginPage = new GmailLoginPage(driver);
+//		gmailLoginPage.logout();
+//		try {
+//			TimeUnit.SECONDS.sleep(3);
+//		} catch (InterruptedException e) {
+//			e.printStackTrace();
+//		}
+//	}
 }

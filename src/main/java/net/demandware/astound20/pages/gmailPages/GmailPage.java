@@ -29,9 +29,11 @@ public class GmailPage extends BasePage {
 	}
 
 	public void login(String email, String pass) {
-		emailField = driver.findElement(emailFieldLocator);
+		emailField = webDriverUtil.waitForExpectedCondition(
+				ExpectedConditions.visibilityOfElementLocated(emailFieldLocator));
 		emailField.sendKeys(email);
-		nextButtonEmail = driver.findElement(nextBtnEmailLocator);
+		nextButtonEmail = webDriverUtil.waitForExpectedCondition(
+				ExpectedConditions.elementToBeClickable(nextBtnEmailLocator));
 		nextButtonEmail.click();
 		passwordField = webDriverUtil.waitForExpectedCondition(
 				ExpectedConditions.elementToBeClickable(passFieldLocator));
