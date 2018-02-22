@@ -12,7 +12,7 @@ import static org.testng.Assert.assertTrue;
 public class TestCases extends TestBase {
 
 	//Test scenario#1
-	@Test
+	@Test(enabled = false)
 	public void productFromWomanCategAddedToCart() {
 		HomePage homePage = new HomePage(driver);
 		homePage.hoverWomanCategory();
@@ -25,7 +25,7 @@ public class TestCases extends TestBase {
 	}
 
 	//Test scenario#2
-	@Test
+	@Test(enabled = false)
 	public void hoveringWomanCategOpensPopup() {
 		HomePage homePage = new HomePage(driver);
 		homePage.hoverWomanCategory();
@@ -33,7 +33,7 @@ public class TestCases extends TestBase {
 	}
 
 	//Test scenario#3
-	@Test
+	@Test(enabled = false)
 	public void changingAmountOfItemsOnPLP() {
 		HomePage homePage = new HomePage(driver);
 		homePage.hoverWomanCategory();

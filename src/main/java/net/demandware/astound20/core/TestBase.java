@@ -2,19 +2,20 @@ package net.demandware.astound20.core;
 
 import java.util.concurrent.TimeUnit;
 
-import net.demandware.astound20.pages.gmailPages.GmailLoginPage;
+import io.github.bonigarcia.wdm.ChromeDriverManager;
+import io.github.bonigarcia.wdm.FirefoxDriverManager;
 import net.demandware.astound20.util.PropertiesCache;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 
+import org.openqa.selenium.firefox.FirefoxDriver;
 import org.testng.annotations.AfterClass;
-import org.testng.annotations.AfterMethod;
-import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 
 public class TestBase {
 	protected WebDriver driver;
+	private String browser = System.getProperty("browser");
 
 	private String baseUrl = PropertiesCache.getProperty("base.URL");
 	private long implicitWait = Long.parseLong(PropertiesCache.getProperty("wait.implicit"));
@@ -23,10 +24,29 @@ public class TestBase {
 
 	@BeforeClass(alwaysRun = true)
 	public void setUp() {
-		String pathToFileWindows = ".\\drivers\\chromedriver.exe";
-		System.setProperty("webdriver.chrome.driver", pathToFileWindows);
-		driver = new ChromeDriver();
+		//manually
+//		String pathToFileWindows = ".\\drivers\\chromedriver.exe";
+//		System.setProperty("webdriver.chrome.driver", pathToFileWindows);
+//		driver = new ChromeDriver();
+		//user lib
+//		ChromeDriverManager.getInstance().setup();
+//        driver = new ChromeDriver();
+		setBrowser();
 		setWebDriverSettings();
+	}
+
+	public void setBrowser() {
+		BrowserEnum runBrowser = browser == null ? BrowserEnum.CHROME : BrowserEnum.valueOf(browser);
+		switch (runBrowser) {
+		case CHROME:
+			ChromeDriverManager.getInstance().setup();
+			driver = new ChromeDriver();
+			break;
+		case FF:
+			FirefoxDriverManager.getInstance().setup();
+			driver = new FirefoxDriver();
+			break;
+		}
 	}
 
 	@AfterClass(alwaysRun = true)
