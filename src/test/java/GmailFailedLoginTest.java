@@ -13,7 +13,7 @@ public class GmailFailedLoginTest extends TestBase {
 	@Test(enabled = true, groups = "negative")
 	public void gmailTestLoginFailed() {
 		GmailPage gmailPage = new GmailPage(driver);
-		gmailPage.login(PropertiesCache.getProperty("user.nameValid"),
+		gmailPage.login(PropertiesCache.getProperty("user1.nameValid"),
 		                PropertiesCache.getProperty("user.passwordInvalid"));
 		assertTrue(gmailPage.errorMessageIsDisplayed());
 		assertEquals(expectedErrorMessage, gmailPage.getErrorText());
