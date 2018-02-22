@@ -17,20 +17,17 @@ public class TestBase {
 	protected WebDriver driver;
 	private String browser = System.getProperty("browser");
 
-	private String baseUrl = PropertiesCache.getProperty("base.URL");
+	private String baseUrl = PropertiesCache.getProperty("base.URL.gmail");//base.URL.AstoundAdress
 	private long implicitWait = Long.parseLong(PropertiesCache.getProperty("wait.implicit"));
 	private long loadingPageTime = Long.parseLong(PropertiesCache.getProperty("wait.loadingPage"));
 	private long scriptSetTime = Long.parseLong(PropertiesCache.getProperty("wait.scriptSetTime"));
 
 	@BeforeClass(alwaysRun = true)
 	public void setUp() {
-		//manually
-//		String pathToFileWindows = ".\\drivers\\chromedriver.exe";
-//		System.setProperty("webdriver.chrome.driver", pathToFileWindows);
-//		driver = new ChromeDriver();
-		//user lib
+		//use lib
 //		ChromeDriverManager.getInstance().setup();
-//        driver = new ChromeDriver();
+//      driver = new ChromeDriver();
+		//use mvn (run: -Dbrowser={$browser})
 		setBrowser();
 		setWebDriverSettings();
 	}
@@ -51,7 +48,8 @@ public class TestBase {
 
 	@AfterClass(alwaysRun = true)
 	public void tearDown() {
-		driver.close();
+		if (driver != null)
+			driver.quit();
 	}
 
 	private void setWebDriverSettings() {

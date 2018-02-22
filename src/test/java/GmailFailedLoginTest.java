@@ -19,5 +19,3 @@ public class GmailFailedLoginTest extends TestBase {
 		assertEquals(expectedErrorMessage, gmailPage.getErrorText());
 	}
 }
-
-

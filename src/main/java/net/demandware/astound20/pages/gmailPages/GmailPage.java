@@ -1,6 +1,6 @@
 package net.demandware.astound20.pages.gmailPages;
 
-import net.demandware.astound20.pages.BasePage;
+import net.demandware.astound20.pages.astoundPages.BasePage;
 import net.demandware.astound20.util.PropertiesCache;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;

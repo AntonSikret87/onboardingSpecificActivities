@@ -11,15 +11,19 @@ public class PropertiesCache {
 	private PropertiesCache() {
 		//Private constructor to restrict new instances
 		System.out.println("Read all properties from file ");
-		InputStream inConfigProp = this.getClass().getClassLoader().getResourceAsStream("test.properties");
-		InputStream inTestLocatorsData = this.getClass().getClassLoader().getResourceAsStream("config.properties");
+		InputStream inLocatorsAstound = this.getClass().getClassLoader().getResourceAsStream(
+				"selectorsAstound.properties");
+		InputStream inConfigAstound = this.getClass().getClassLoader().getResourceAsStream("configAstound.properties");
 		InputStream inConfigPropGmail = this.getClass().getClassLoader().getResourceAsStream("configGmail.properties");
-		InputStream inTestLocatorsDataGmail = this.getClass().getClassLoader().getResourceAsStream("data_and_selectorsGmail.properties");
+		InputStream inLocatorsGmail = this.getClass().getClassLoader().getResourceAsStream("selectorsGmail" +
+		                                                                                   ".properties");
+		InputStream inDataGmail = this.getClass().getClassLoader().getResourceAsStream("dataGmail.properties");
 		try {
-			configProp.load(inConfigProp);
-			configProp.load(inTestLocatorsData);
+			configProp.load(inConfigAstound);
+			configProp.load(inLocatorsAstound);
 			configProp.load(inConfigPropGmail);
-			configProp.load(inTestLocatorsDataGmail);
+			configProp.load(inLocatorsGmail);
+			configProp.load(inDataGmail);
 		} catch (IOException e) {
 			System.out.println("Cant read all properties from file. Exeprion: " + e);
 		}

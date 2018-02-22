@@ -2,7 +2,7 @@ package net.demandware.astound20.pages.gmailPages;
 
 import java.util.List;
 
-import net.demandware.astound20.pages.BasePage;
+import net.demandware.astound20.pages.astoundPages.BasePage;
 import net.demandware.astound20.util.PropertiesCache;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -23,7 +23,7 @@ public class GmailLoginPage extends BasePage {
 	By showDetailsBtnInEmailLocator = By.xpath(PropertiesCache.getProperty("showDetailsBtnInEmail.xpath"));
 	private WebElement btnShowDetailsEmail;
 
-	By signOutLocator = By.id(PropertiesCache.getProperty("signOutBtn.id"));//.//div//a[@id='gb_71']
+	By signOutLocator = By.id(PropertiesCache.getProperty("signOutBtn.id"));
 	private WebElement btnSignOut;
 
 	public GmailLoginPage(WebDriver driver) {
@@ -42,10 +42,10 @@ public class GmailLoginPage extends BasePage {
 		return incomingLink.isDisplayed();
 	}
 
-	public void findAndOpenEmailBySubject(String subject) {
+	public void findAndOpenEmailBySubject(String sSubject) {
 		lstEmailsSubject = driver.findElements(subjectsListLoctor);
 		for (WebElement link : lstEmailsSubject) {
-			if (link.getText().contains(subject)) {
+			if (link.getText().contains(sSubject)) {
 				//System.out.println("My link seacrhed " + link.getText());
 				link.click();
 				return;
@@ -69,4 +69,3 @@ public class GmailLoginPage extends BasePage {
 		driver.manage().deleteAllCookies();
 	}
 }
-
